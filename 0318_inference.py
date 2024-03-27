@@ -43,7 +43,7 @@ def main():
     parser.add_argument('img_path', type=str, help='Path to the input image')
     args = parser.parse_args()
 
-    img_path = args.img_path
+    img_path = args.img_path 
     weight_path = './0310_crushed.pt'
     device = 'cpu'
 
