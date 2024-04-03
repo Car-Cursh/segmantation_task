@@ -79,9 +79,8 @@ class Unet(nn.Module):
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 num_classes = 1  # Not background and damaged part , Just percentage of damaged pixel. 
 model = Unet(num_classes=num_classes, encoder='resnet34', pre_weight='imagenet').to(device)
-
-criterion = nn.BCEWithLogitsLoss()  # For binary classification, adjust if necessary
-optimizer = optim.Adam(model.parameters(), lr=0.001)
+pos_weight = torch.tensor([10.])
+criterion = nn.BCEWithLogitsLoss(pos_weight=pos_weight)  # For binary classification
 jaccard_index = JaccardIndex(num_classes=2)
 num_epochs = 100 
 
