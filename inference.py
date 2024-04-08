@@ -11,7 +11,7 @@ parser.add_argument('img_path', type=str, help='Path to the input image')
 args = parser.parse_args()
 
 img_path = args.img_path
-weight_path = './save_models/70_model.pth'
+weight_path = '../save_models/70_model.pth'
 n_classes = 1  # 이진 분류를 멀티 클래스처럼 하지 않고 회귀느낌으로다가.
 
 device = 'cuda' if torch.cuda.is_available() else 'cpu'

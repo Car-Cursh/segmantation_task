@@ -11,6 +11,7 @@ import torch
 from torch import nn, optim
 import segmentation_models_pytorch as smp
 from torchmetrics import BinaryJaccardIndex
+from Models import Unet
 
 class CarDamageDataset(Dataset):
     def __init__(self, json_dir, img_dir, transform=None):
@@ -64,24 +65,6 @@ val_dataset =CarDamageDataset(json_dir = './car_data/val/json',
                             img_dir = './car_data/val/img',
                             transform = transform)
 val_data_loader = DataLoader(val_dataset,batch_size = 128,shuffle=False)
-
-
-
-
-
-class Unet(nn.Module):
-    def __init__(self, num_classes, encoder, pre_weight):
-        super().__init__()
-        self.model = smp.Unet(
-            classes=num_classes,
-            encoder_name=encoder,
-            encoder_weights=pre_weight,
-            in_channels=3
-        )
-
-    def forward(self, x):
-        y = self.model(x)
-        return y
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 num_classes = 1  # Not background and damaged part, Just percentage of damaged pixel.
